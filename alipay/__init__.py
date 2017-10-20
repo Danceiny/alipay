@@ -5,6 +5,7 @@
     ~~~~~~~~~~
 
 """
+import os
 import json
 from datetime import datetime
 from Crypto.Signature import PKCS1_v1_5
@@ -60,6 +61,10 @@ class BaseAliPay():
         """
         self._appid = appid
         self._app_notify_url = app_notify_url
+        if not os.path.exists(alipay_public_key_path):
+            raise AliPayException(None, "alipay_public_key_path doesn't exist" + alipay_public_key_path)
+        if not os.path.exists(app_private_key_path):
+            raise AliPayException(None, "app_private_key_path doesn't exist" + app_private_key_path)
         self._app_private_key_path = app_private_key_path
         self._alipay_public_key_path = alipay_public_key_path
 
